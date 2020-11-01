@@ -21,14 +21,17 @@ const Auth = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    let data = '';
+    let data = "";
 
     try {
       if (newAccount) {
         // create account
-        data = await authService.createUserWithEmailAndPassword(email,password);
+        data = await authService.createUserWithEmailAndPassword(
+          email,
+          password
+        );
       } else {
-        data = await authService.signInWithEmailAndPassword(email,password);
+        data = await authService.signInWithEmailAndPassword(email, password);
       }
       console.log(data);
     } catch (error) {
@@ -36,21 +39,21 @@ const Auth = () => {
     }
   };
 
-  const toggleAccount = () => setNewAccount(prev => !prev);
+  const toggleAccount = () => setNewAccount((prev) => !prev);
   const onSocialClick = async (event) => {
     const {
-      target: {name}
+      target: { name },
     } = event;
 
     let provider;
-    if(name === "google") {
+    if (name === "google") {
       provider = new firebaseInstance.auth.GoogleAuthProvider();
     } else if (name === "github") {
       provider = new firebaseInstance.auth.GithubAuthProvider();
     }
 
     await authService.signInWithPopup(provider);
-  }
+  };
 
   return (
     <div>
@@ -73,11 +76,17 @@ const Auth = () => {
         {error}
       </form>
 
-      <span onClick={toggleAccount}>{newAccount ? "Sign in" : "Create Account"}</span>
+      <span onClick={toggleAccount}>
+        {newAccount ? "Sign in" : "Create Account"}
+      </span>
 
       <div>
-        <button name="google" onClick={onSocialClick}>Continuve with Google</button>
-        <button name="github" onClick={onSocialClick}>Continue with GitHub</button>
+        <button name="google" onClick={onSocialClick}>
+          Continuve with Google
+        </button>
+        <button name="github" onClick={onSocialClick}>
+          Continue with GitHub
+        </button>
       </div>
     </div>
   );
