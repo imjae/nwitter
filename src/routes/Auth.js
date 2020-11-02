@@ -26,14 +26,10 @@ const Auth = () => {
     try {
       if (newAccount) {
         // create account
-        data = await authService.createUserWithEmailAndPassword(
-          email,
-          password
-        );
+        data = await authService.createUserWithEmailAndPassword(email,password);
       } else {
         data = await authService.signInWithEmailAndPassword(email, password);
       }
-      console.log(data);
     } catch (error) {
       setError(error.message);
     }
