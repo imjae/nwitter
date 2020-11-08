@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
 
   useEffect(() => {
     dbService.collection("nweets").onSnapshot((snapshot) => {
@@ -22,7 +22,7 @@ const Home = ({ userObj }) => {
     event.preventDefault();
     let attachmentUrl = "";
 
-    if (attachment !== "") {
+    if (attachment != "") {
       const attachmentRef = storageService
         .ref()
         .child(`${userObj.uid}/${uuidv4()}`);
@@ -37,14 +37,8 @@ const Home = ({ userObj }) => {
       attachmentUrl,
     };
     await dbService.collection("nweets").add(nweetObj);
-    // setNweets("");
-    // setAttachment("");
-    // await dbService.collection("nweets").add({
-    //   text: nweet,
-    //   createdAt: Date.now(),
-    //   creatorId: userObj.uid,
-    // });
-    // setNweet("");
+    setNweet("");
+    setAttachment("");
   };
 
   const onChange = (event) => {
@@ -74,7 +68,7 @@ const Home = ({ userObj }) => {
 
   return (
     <div>
-      <form>
+      <form onSubmit={onSubmit}>
         <input
           value={nweet}
           onChange={onChange}
@@ -83,7 +77,7 @@ const Home = ({ userObj }) => {
           maxLength={120}
         />
         <input type="file" accept="image/*" onChange={onFileChange} />
-        <input type="submit" onClick={onSubmit} value="Nweet" />
+        <input type="submit" value="Nweet" />
         {attachment && (
           <div>
             <img src={attachment} width="50px" height="50px" />
