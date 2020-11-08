@@ -17,7 +17,7 @@ const Home = ({ userObj }) => {
       setNweets(nweetArray);
     });
   }, []);
-
+  
   const onSubmit = async (event) => {
     event.preventDefault();
     let attachmentUrl = "";

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [newAccount, setNewAccount] = useState(false);
+  const [newAccount, setNewAccount] = useState(true);
   const [error, setError] = useState("");
 
   const onChange = (event) => {
@@ -36,6 +36,7 @@ const Auth = () => {
   };
 
   const toggleAccount = () => setNewAccount((prev) => !prev);
+  
   const onSocialClick = async (event) => {
     const {
       target: { name },
